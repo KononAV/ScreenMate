@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class GameView : MonoBehaviour
+public partial class GameView : MonoBehaviour
 {
     [SerializeField]
-    private GameObject scrollBarPanel = null;
-    public GameObject ScrollBarPanel => scrollBarPanel;
+    [PublicProperty]
+    private GameObject scrollBarPanel;
 
     void Start() { }
 
