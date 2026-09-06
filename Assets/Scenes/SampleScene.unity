@@ -738,6 +738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db2406bb0b063be4ab5367626562fe3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameView
+  scrollBarPanel: {fileID: 595646340}
 --- !u!1 &1486008518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,6 +1250,6 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1371451011}
   - {fileID: 1910493586}
-  - {fileID: 1629978698}
   - {fileID: 595646342}
   - {fileID: 1486008522}
+  - {fileID: 1629978698}
