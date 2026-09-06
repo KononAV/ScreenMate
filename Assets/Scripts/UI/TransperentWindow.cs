@@ -15,7 +15,6 @@ public class TransparentWindow : MonoBehaviour
         IntPtr hWnd = w32.GetActiveWindow();
 
         w32.SetWindowLong(hWnd, wStyle.GWL_STYLE, wStyle.WS_CAPTION);
-
         w32.SetWindowPos(hWnd, wPos.HWND_TOPMOST, 0, 0, 0, 0, 0);
 
         MARGINS margins = new MARGINS { cxLeftWidth = -1 };
