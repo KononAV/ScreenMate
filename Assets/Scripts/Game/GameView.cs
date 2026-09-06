@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class GameView : MonoBehaviour
 {
-    //public Transpere
+    [SerializeField]
+    private GameObject scrollBarPanel = null;
+    public GameObject ScrollBarPanel => scrollBarPanel;
+
     void Start() { }
 
-    // Update is called once per frame
     void Update() { }
 }
