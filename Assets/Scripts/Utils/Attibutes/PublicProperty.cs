@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PublicPropertyAttribute : PropertyAttribute
+public class PublicReadonlyAttribute : PropertyAttribute
 {
-    public PublicPropertyAttribute()
+    public PublicReadonlyAttribute()
     {
         Debug.Log("Attribute setted");
     }

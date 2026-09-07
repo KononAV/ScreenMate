@@ -3,12 +3,12 @@ using UnityEditor;
 using UnityEngine;
 using publicAttribute = AGLogic.Generation;
 
-[CustomPropertyDrawer(typeof(PublicPropertyAttribute))]
+[CustomPropertyDrawer(typeof(PublicReadonlyAttribute))]
 public class PublicPropertyDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        PublicPropertyAttribute custom = (PublicPropertyAttribute)attribute;
+        PublicReadonlyAttribute custom = (PublicReadonlyAttribute)attribute;
         EditorGUI.PropertyField(position, property, label);
 
         FieldInfo field = fieldInfo;

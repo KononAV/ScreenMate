@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Unity.Collections;
-using UnityEngine;
 using native = NALogic.NativeAttributesLogic;
 
 namespace AGLogic
@@ -29,7 +28,7 @@ namespace AGLogic
 
     // public partial class {className}
     // {{      
-    // public {fieldCode} {fieldName};
+    // public readonly {fieldCode} {fieldName};
     // }}
 ";
         }
@@ -40,6 +39,12 @@ namespace AGLogic
             native.CreateDirectory(folder);
 
             string className = type.Name;
+
+            // NativeArray<string>;
+
+            var fields = type.GetFields()
+                .Where(field => Attribute.IsDefined(field, typeof(PublicReadonlyAttribute)));
+
             string fieldName = ModifyFieldName(fieldInfo.Name);
             string imports = native.GetImports(fieldInfo);
 

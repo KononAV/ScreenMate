@@ -5,5 +5,5 @@ using UnityEngine;
 
     // public partial class GameView
     // {      
-    // public List<Vector3> ScrollBarPanel2;
+    // public readonly List<Vector3> ScrollBarPanel0;
     // }

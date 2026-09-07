@@ -4,8 +4,9 @@ using UnityEngine;
 public partial class GameView : MonoBehaviour
 {
     [SerializeField]
-    [PublicProperty]
-    private List<Vector3> scrollBarPanel2;
+    [PublicReadonly]
+    private List<Vector3> scrollBarPanel0;
+    public List<Vector3> ScrollBarPanel0 => scrollBarPanel0;
 
     void Start()
     {
