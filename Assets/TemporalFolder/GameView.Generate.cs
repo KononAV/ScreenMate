@@ -1,5 +1,9 @@
 
+    // using System.Collections.Generic;
+using UnityEngine;
+
+
     // public partial class GameView
     // {      
-    // public GameObject scrollBarPanel;;
+    // public List<Vector3> ScrollBarPanel2;
     // }
