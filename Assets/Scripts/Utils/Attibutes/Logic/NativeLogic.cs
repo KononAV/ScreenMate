@@ -11,6 +11,13 @@ namespace NALogic
 {
     static class NativeAttributesLogic
     {
+        public static IEnumerable<FieldInfo> GetFieldsWithSpecificAttribute<TAttribute>(Type type)
+            where TAttribute : Attribute
+        {
+            return type.GetRuntimeFields()
+                .Where(field => Attribute.IsDefined(field, typeof(TAttribute)));
+        }
+
         public static string GetTypeName(Type type)
         {
             if (!type.IsGenericType)
@@ -43,7 +50,7 @@ namespace NALogic
 
             foreach (string item in usings)
             {
-                imports += $"using {item};\n";
+                imports += $"using {item};";
             }
             return imports;
         }

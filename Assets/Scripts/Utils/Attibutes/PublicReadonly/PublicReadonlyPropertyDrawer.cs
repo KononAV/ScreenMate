@@ -16,6 +16,6 @@ public class PublicPropertyDrawer : PropertyDrawer
 
         Debug.Log($"name: {field.Name}");
         Debug.Log($"class: {declaringType.Name}");
-        publicAttribute.Generate(declaringType, field);
+        publicAttribute.Generate(declaringType);
     }
 }

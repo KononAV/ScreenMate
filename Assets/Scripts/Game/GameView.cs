@@ -5,8 +5,13 @@ public partial class GameView : MonoBehaviour
 {
     [SerializeField]
     [PublicReadonly]
-    private List<Vector3> scrollBarPanel0;
-    public List<Vector3> ScrollBarPanel0 => scrollBarPanel0;
+    private List<int> scrollBarPanel0;
+
+    [SerializeField]
+    [PublicReadonly]
+    private GameObject[] anotherScrollBar;
+
+    // public List<Vector3> ScrollBarPanel0 => scrollBarPanel0;
 
     void Start()
     {
