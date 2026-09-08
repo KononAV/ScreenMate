@@ -65,7 +65,7 @@ namespace AnalizerLogic
             return results;
         }
 
-        private static bool HasPublicReadonlyAttribute(IFieldSymbol field)
+        private static bool HasPublicReadonlyAttribute(IFieldSymbol field) //! change
         {
             return field
                 .GetAttributes()

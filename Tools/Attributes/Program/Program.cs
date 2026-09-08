@@ -7,18 +7,23 @@ using static PublicReadonly;
 class Program
 {
     private static readonly string AssetsPath = @"D:/Unity/proj/ScreenMate/Assets/Scripts";
+    private static readonly string AttributesPath =
+        @"D:\Unity\proj\ScreenMate\Assets\Scripts\Utils\Attibutes";
 
     static void Main()
     {
-        if (!Directory.Exists(AssetsPath))
-        {
-            Console.WriteLine($"Assets directory not found: {AssetsPath}");
-            return;
-        }
+        EXCEPTIONS.IsWorkDirectoryExist(AssetsPath);
 
         Console.WriteLine("Generator started.");
         Console.WriteLine("Waiting for changes...");
 
+        WatcherSetup(AssetsPath);
+
+        Console.ReadLine();
+    }
+
+    private static WatcherSetup(string AssetsPath)
+    {
         using var watcher = new FileSystemWatcher(AssetsPath, "*.cs");
 
         watcher.IncludeSubdirectories = true;
@@ -28,22 +33,16 @@ class Program
         watcher.Changed += OnFileChanged;
 
         watcher.EnableRaisingEvents = true;
-
-        Console.ReadLine();
     }
 
     private static void OnFileChanged(object sender, FileSystemEventArgs e)
     {
-        if (e.FullPath.EndsWith(".Generate.cs", StringComparison.OrdinalIgnoreCase))
-        {
-            return;
-        }
-
+        EXCEPTIONS.RecursionException(e);
         Thread.Sleep(100);
 
         try
         {
-            var results = RoslynAnalyzer.Analyze(e.FullPath);
+            var results = RoslynAnalyzer.Analyze(e.FullPath); //! change
 
             foreach (var result in results)
             {
@@ -61,6 +60,25 @@ class Program
         catch (Exception exception)
         {
             Console.WriteLine($"Error: {exception.Message}");
+        }
+    }
+}
+
+static class EXCEPTIONS
+{
+    public static void RecursionException(FileSystemEventArgs e)
+    {
+        if (e.FullPath.EndsWith(".Generate.cs", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new Exception("RECRUSION ATTRIBUTE EXCEPTION " + e.ToString());
+        }
+    }
+
+    public static void IsWorkDirectoryExist(string assetsPath)
+    {
+        if (!Directory.Exists(assetsPath))
+        {
+            throw new Exception("WORKING DIRECTORY DOES NOT EXIST " + assetsPath);
         }
     }
 }
