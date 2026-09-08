@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -10,6 +11,9 @@ namespace AnalizerLogic
 {
     public static class RoslynAnalyzer
     {
+        private static string scriptAssemblies =
+            @"D:/Unity/proj/ScreenMate/Library/ScriptAssemblies";
+
         public sealed class AnalysisResult
         {
             public INamedTypeSymbol Type { get; }
@@ -69,21 +73,35 @@ namespace AnalizerLogic
                 {
                     string? name = attribute.AttributeClass?.Name;
 
-                    return name == "PublicReadonlyAttribute" || name == "PublicReadonly";
+                    return name == "PublicReadonlyAttribute";
                 });
         }
 
         private static IEnumerable<MetadataReference> GetReferences()
         {
-            return new[]
+            var references = new List<MetadataReference>();
+
+            Assembly[] assemblies =
             {
                 typeof(object).Assembly,
                 typeof(Console).Assembly,
                 typeof(Enumerable).Assembly,
+            };
+
+            foreach (var assembly in assemblies)
+            {
+                references.Add(MetadataReference.CreateFromFile(assembly.Location));
             }
-                .Select(assembly => MetadataReference.CreateFromFile(assembly.Location))
-                .GroupBy(reference => reference.Display)
-                .Select(group => group.First());
+
+            if (Directory.Exists(scriptAssemblies))
+            {
+                foreach (string dll in Directory.GetFiles(scriptAssemblies, "*.dll"))
+                {
+                    references.Add(MetadataReference.CreateFromFile(dll));
+                }
+            }
+
+            return references.GroupBy(x => x.Display).Select(x => x.First());
         }
     }
 }

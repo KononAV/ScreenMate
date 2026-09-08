@@ -16,25 +16,6 @@ namespace NALogic
             }
         }
 
-        public static IEnumerable<IFieldSymbol> GetFieldsWithSpecificAttribute(
-            INamedTypeSymbol type,
-            string attributeName
-        )
-        {
-            return type.GetMembers()
-                .OfType<IFieldSymbol>()
-                .Where(field =>
-                    field
-                        .GetAttributes()
-                        .Any(attribute =>
-                        {
-                            string? name = attribute.AttributeClass?.Name;
-
-                            return name == attributeName || name == attributeName + "Attribute";
-                        })
-                );
-        }
-
         public static string GetTypeName(ITypeSymbol type)
         {
             if (type is IArrayTypeSymbol array)
@@ -46,7 +27,7 @@ namespace NALogic
             {
                 if (named.SpecialType != SpecialType.None)
                 {
-                    return GetSpecialTypeName(named.SpecialType);
+                    return HELPER.GetSpecialTypeName(named.SpecialType);
                 }
 
                 if (named.IsGenericType)
@@ -62,7 +43,32 @@ namespace NALogic
             return type.Name;
         }
 
-        private static string GetSpecialTypeName(SpecialType type)
+        public static string GetImports(IReadOnlyList<IFieldSymbol> fields)
+        {
+            HashSet<string> usings = new HashSet<string>();
+
+            foreach (var field in fields)
+            {
+                HELPER.AddNamespace(usings, field.Type);
+            }
+            return String.Join("\n", (usings.Select(use => "using " + use + ";")).ToArray());
+        }
+
+        public static void Build(string folder, string className, string fileInfo, string code)
+        {
+            CreateDirectory(folder);
+
+            string path = Path.Combine(folder, $"{className}{fileInfo}");
+
+            File.WriteAllText(path, code);
+
+            Console.WriteLine($"Generated: {path}");
+        }
+    }
+
+    static class HELPER
+    {
+        public static string GetSpecialTypeName(SpecialType type)
         {
             return type switch
             {
@@ -87,21 +93,7 @@ namespace NALogic
             };
         }
 
-        public static string GetImports(IFieldSymbol field)
-        {
-            var usings = new HashSet<string>();
-
-            AddNamespace(usings, field.Type);
-
-            return string.Join(
-                "\n",
-                usings
-                    .Where(x => !string.IsNullOrWhiteSpace(x) && x != "global namespace")
-                    .Select(x => $"using {x};")
-            );
-        }
-
-        private static void AddNamespace(HashSet<string> usings, ITypeSymbol type)
+        public static void AddNamespace(HashSet<string> usings, ITypeSymbol type)
         {
             if (type is IArrayTypeSymbol array)
             {
@@ -128,7 +120,7 @@ namespace NALogic
             AddTypeNamespace(usings, type);
         }
 
-        private static void AddTypeNamespace(HashSet<string> usings, ITypeSymbol type)
+        public static void AddTypeNamespace(HashSet<string> usings, ITypeSymbol type)
         {
             if (type.SpecialType != SpecialType.None)
             {
@@ -137,27 +129,12 @@ namespace NALogic
 
             string? namespaceName = type.ContainingNamespace?.ToDisplayString();
 
-            if (
-                string.IsNullOrEmpty(namespaceName)
-                || namespaceName == "global namespace"
-                || namespaceName == "System"
-            )
-            {
-                return;
-            }
+            Console.WriteLine("NAMESPACE NAME: " + namespaceName);
+
+            if (namespaceName == "<global namespace>")
+                namespaceName = "UnityEngine";
 
             usings.Add(namespaceName);
-        }
-
-        public static void Build(string folder, string className, string fileInfo, string code)
-        {
-            CreateDirectory(folder);
-
-            string path = Path.Combine(folder, $"{className}{fileInfo}");
-
-            File.WriteAllText(path, code);
-
-            Console.WriteLine($"Generated: {path}");
         }
     }
 }

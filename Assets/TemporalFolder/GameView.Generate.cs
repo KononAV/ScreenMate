@@ -1,12 +1,10 @@
-using System;
-using UnityEngine;
-            
+           
 using System.Collections.Generic;
-using <global namespace>;
-
+using UnityEngine;
 
 public partial class GameView
 {
-        public System.Collections.Generic.List<int> ScrollBarPanel0 => scrollBarPanel0;
-        public GameObject[] AnotherScrollBar000 => anotherScrollBar000;
+        public List<int> ScrollBarPanel0 => scrollBarPanel0;
+        public GameObject[] AnotherScroll12 => anotherScroll12;
+        public GameObject[] AnotherScroll1222 => anotherScroll1222;
 }

@@ -1,39 +1,12 @@
-﻿// using System;
-// using System.IO;
-
-// string folder = @"D:\Unity\proj\ScreenMate\Assets\Scripts\Game";
-
-// using FileSystemWatcher watcher = new FileSystemWatcher();
-
-// watcher.Path = folder;
-// watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName;
-
-// watcher.Filter = "*.*";
-// watcher.IncludeSubdirectories = true;
-
-// watcher.Changed += OnFileChanged;
-
-// watcher.EnableRaisingEvents = true;
-
-// Console.WriteLine($"Отслеживаем: {folder}");
-// Console.WriteLine("Сохраняй файлы в VS Code...");
-// Console.WriteLine("Нажми Enter для выхода.");
-
-// Console.ReadLine();
-
-// void OnFileChanged(object sender, FileSystemEventArgs e)
-// {
-//     Console.WriteLine($"[{DateTime.Now:HH:mm:ss}] Файл изменён: {e.Name}");
-// }
-using System;
+﻿using System;
 using System.IO;
 using System.Threading;
-using AGLogic;
 using AnalizerLogic;
+using static PublicReadonly;
 
 class Program
 {
-    private static readonly string AssetsPath = @"D:/Unity/proj/ScreenMate/Assets";
+    private static readonly string AssetsPath = @"D:/Unity/proj/ScreenMate/Assets/Scripts";
 
     static void Main()
     {
@@ -50,7 +23,7 @@ class Program
 
         watcher.IncludeSubdirectories = true;
 
-        watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size;
+        watcher.NotifyFilter = NotifyFilters.Size;
 
         watcher.Changed += OnFileChanged;
 
@@ -74,7 +47,15 @@ class Program
 
             foreach (var result in results)
             {
-                Generation.Generate(result.Type, result.Fields);
+                Console.WriteLine("TYPE: " + result.Type);
+                Console.WriteLine("FIELD: " + result.Fields);
+                AttributeGenerateTypes.Types.BaseTemplateByAttributeBuild(
+                    result.Type,
+                    result.Fields,
+                    PublicReadonly.folder,
+                    PublicReadonly.fileInfo,
+                    PublicReadonly.GetStringCode
+                );
             }
         }
         catch (Exception exception)

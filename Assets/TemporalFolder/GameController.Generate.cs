@@ -1,8 +1,8 @@
+using UnityEditor;     
 
-using System;
-using UnityEngine.UI;
+using UnityEngine;
 
 public partial class GameController
 {
-        public Button TestLabel => testLabel;
+        public SerializedObject A => a;
 }

@@ -9,14 +9,13 @@ public partial class GameView : MonoBehaviour
 
     [SerializeField]
     [PublicReadonly]
-    private GameObject[] anotherScrollBar000;
+    private GameObject[] anotherScroll12;
 
-    // public List<Vector3> ScrollBarPanel0 => scrollBarPanel0;
+    [PublicReadonly]
+    private GameObject[] anotherScroll1222;
 
-    void Start()
+    void Update()
     {
-        Debug.Log(12);
+        //Debug.Log(AnotherScroll1);
     }
-
-    void Update() { }
 }
