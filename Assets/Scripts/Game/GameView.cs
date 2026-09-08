@@ -9,7 +9,7 @@ public partial class GameView : MonoBehaviour
 
     [SerializeField]
     [PublicReadonly]
-    private GameObject[] anotherScrollBar;
+    private GameObject[] anotherScrollBar000;
 
     // public List<Vector3> ScrollBarPanel0 => scrollBarPanel0;
 

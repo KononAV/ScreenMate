@@ -1,7 +1,6 @@
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using publicAttribute = AGLogic.Generation;
 
 [CustomPropertyDrawer(typeof(PublicReadonlyAttribute))]
 public class PublicPropertyDrawer : PropertyDrawer
@@ -16,6 +15,6 @@ public class PublicPropertyDrawer : PropertyDrawer
 
         Debug.Log($"name: {field.Name}");
         Debug.Log($"class: {declaringType.Name}");
-        publicAttribute.Generate(declaringType);
+        //publicAttribute.Generate(declaringType);
     }
 }
