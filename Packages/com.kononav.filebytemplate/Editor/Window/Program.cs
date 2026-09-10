@@ -5,9 +5,6 @@ namespace KononAV.FileByTemplate.Editor
 {
     public class PublicReadonlyWindow : EditorWindow
     {
-        const string SCRIPTS_PATH = "Assets/Scripts";
-
-        private string folder = SCRIPTS_PATH + "Assets/Generated";
         private bool autoGenerate = true;
         private bool generateOnSave = true;
 
@@ -19,11 +16,15 @@ namespace KononAV.FileByTemplate.Editor
 
         private void OnGUI()
         {
+            WindowStyles style = new();
+
             GUILayout.Label("Public Readonly Generator", EditorStyles.boldLabel);
 
             EditorGUILayout.Space();
 
-            folder = EditorGUILayout.TextField("Output Folder", folder);
+            style.GetAnalizingFolderField();
+
+            EditorGUILayout.Space();
 
             autoGenerate = EditorGUILayout.Toggle("Auto Generate", autoGenerate);
 
@@ -51,7 +52,7 @@ namespace KononAV.FileByTemplate.Editor
 
         private void OpenFolder()
         {
-            EditorUtility.RevealInFinder(System.IO.Path.GetFullPath(folder));
+            //EditorUtility.RevealInFinder(System.IO.Path.GetFullPath(folder));
         }
     }
 }

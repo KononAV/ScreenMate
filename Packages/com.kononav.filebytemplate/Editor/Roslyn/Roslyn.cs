@@ -7,18 +7,16 @@ using static PublicReadonly;
 
 class RoslynAnalizer
 {
-    private static readonly string AssetsPath = @"Assets/Scripts";
-
     private static FileSystemWatcher watcher;
 
     public static void Main()
     {
-        EXCEPTIONS.IsWorkDirectoryExist(AssetsPath);
+        EXCEPTIONS.IsWorkDirectoryExist(EditorData.WATCHER_ASSETS_PATH);
 
         Debug.Log("Generator started.");
         Debug.Log("Waiting for changes...");
 
-        WatcherSetup(AssetsPath);
+        WatcherSetup(EditorData.WATCHER_ASSETS_PATH);
     }
 
     private static void WatcherSetup(string AssetsPath)

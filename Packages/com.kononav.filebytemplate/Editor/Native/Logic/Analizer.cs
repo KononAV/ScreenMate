@@ -11,9 +11,6 @@ namespace AnalizerLogic
 {
     public static class RoslynAnalyzer
     {
-        private static string scriptAssemblies =
-            @"D:/Unity/proj/ScreenMate/Library/ScriptAssemblies";
-
         public sealed class AnalysisResult
         {
             public INamedTypeSymbol Type { get; }
@@ -93,9 +90,9 @@ namespace AnalizerLogic
                 references.Add(MetadataReference.CreateFromFile(assembly.Location));
             }
 
-            if (Directory.Exists(scriptAssemblies))
+            if (Directory.Exists(EditorData.SCRIPT_ASSEMBLIES))
             {
-                foreach (string dll in Directory.GetFiles(scriptAssemblies, "*.dll"))
+                foreach (string dll in Directory.GetFiles(EditorData.SCRIPT_ASSEMBLIES, "*.dll"))
                 {
                     references.Add(MetadataReference.CreateFromFile(dll));
                 }
