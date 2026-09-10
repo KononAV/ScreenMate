@@ -1,11 +1,13 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Alisakonon32.FileByTemplate.Editor
+namespace KononAV.FileByTemplate.Editor
 {
     public class PublicReadonlyWindow : EditorWindow
     {
-        private string folder = "Assets/Generated";
+        const string SCRIPTS_PATH = "Assets/Scripts";
+
+        private string folder = SCRIPTS_PATH + "Assets/Generated";
         private bool autoGenerate = true;
         private bool generateOnSave = true;
 

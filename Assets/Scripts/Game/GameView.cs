@@ -5,14 +5,17 @@ public partial class GameView : MonoBehaviour
 {
     [SerializeField]
     [PublicReadonly]
-    private List<int> scrollBarPanel0;
+    private List<int> scrolfdlBrr;
 
     [SerializeField]
     [PublicReadonly]
-    private GameObject[] anotherScroll12;
+    private GameObject[] i66;
 
     [PublicReadonly]
-    private GameObject[] anotherScroll1222;
+    public readonly GameObject adddsd7f;
+
+    [PublicReadonly]
+    private GameObject[] dfdfs4554;
 
     void Update()
     {

@@ -1,0 +1,6 @@
+using UnityEngine;
+
+public class PublicReadonlyAttribute : PropertyAttribute
+{
+    public PublicReadonlyAttribute() { }
+}

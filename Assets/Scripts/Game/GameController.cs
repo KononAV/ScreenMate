@@ -9,17 +9,19 @@ using UnityEngine.UI;
 public partial class GameController : MonoBehaviour
 {
     public readonly TransparentWindow windowSettings = new TransparentWindow();
-    public readonly GameView gameView;
 
-    // [SerializeField]
-    // [PublicReadonly]
-    // private Button testLabel = null;
+    [PublicReadonly]
+    public readonly GameView gameView0;
 
-    // [PublicReadonly]
-    // private EventSystem eventSystem;
+    [SerializeField]
+    [PublicReadonly]
+    private Button tertstLabel = null;
 
-    // [PublicReadonly]
-    // private ShaderGraphRequirements shaderGraphRequirements;
+    [PublicReadonly]
+    private EventSystem eventSystem;
+
+    [PublicReadonly]
+    private ShaderGraphRequirements shaderGraphRequirements;
 
     [PublicReadonly]
     private SerializedObject a;

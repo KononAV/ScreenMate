@@ -6,9 +6,11 @@ using attributeGenerator = AttributeGenerateTypes.Types;
 
 public static class PublicReadonly
 {
-    public static string folder = "D:/Unity/proj/ScreenMate/Assets/TemporalFolder";
-    public static string fileInfo = ".Generate.cs";
-    public static string modificator = "public";
+    public static AttributeDataSettings Settings = new()
+    {
+        Folder = "Assets/TemporalFolder",
+        FileInfo = ".PublicReadonly.cs",
+    };
 
     private static string ModifyFieldName(string name)
     {
@@ -26,7 +28,7 @@ public static class PublicReadonly
             {
                 string type = NALogic.NativeAttributesLogic.GetTypeName(field.Type);
                 string name = ModifyFieldName(field.Name);
-                return $"        {modificator} {type} " + $"{name} => {field.Name};";
+                return $"        public {type} " + $"{name} => {field.Name};";
             })
         );
     }
