@@ -1,5 +1,13 @@
 {
   "dependencies": {
+    "com.alisakonon32.filebytemplate": {
+      "version": "file:com.kononav.filebytemplate",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.test-framework": "1.6.0"
+      }
+    },
     "com.unity.2d.animation": {
       "version": "15.1.0",
       "depth": 0,

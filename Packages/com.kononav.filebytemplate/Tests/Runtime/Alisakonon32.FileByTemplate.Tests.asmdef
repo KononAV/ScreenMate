@@ -1,0 +1,11 @@
+{
+    "name": "Alisakonon32.FileByTemplate.Tests",
+    "references": [
+        "Alisakonon32.FileByTemplate"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

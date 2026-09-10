@@ -1,0 +1,14 @@
+{
+    "name": "Alisakonon32.FileByTemplate.Editor.Tests",
+    "references": [
+        "Alisakonon32.FileByTemplate.Editor",
+        "Alisakonon32.FileByTemplate"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

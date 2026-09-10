@@ -1,3 +1,7 @@
 ﻿<Solution>
   <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Alisakonon32.FileByTemplate.Editor.csproj" />
+  <Project Path="Alisakonon32.FileByTemplate.Editor.Tests.csproj" />
+  <Project Path="Alisakonon32.FileByTemplate.Tests.csproj" />
+  <Project Path="Alisakonon32.FileByTemplate.csproj" />
 </Solution>

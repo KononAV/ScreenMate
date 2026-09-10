@@ -1,0 +1,10 @@
+{
+    "name": "Alisakonon32.FileByTemplate.Editor",
+    "references": [
+      "Alisakonon32.FileByTemplate"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
