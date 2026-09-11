@@ -13,6 +13,45 @@ namespace NALogic
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);
+                ;
+            }
+        }
+
+        public static void DeleteFolder(string path)
+        {
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+        }
+
+        public static void CopyFolder(string sourcePath, string destinationParentPath)
+        {
+            string folderName = Path.GetFileName(
+                sourcePath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+            );
+
+            string destinationPath = Path.Combine(destinationParentPath, folderName);
+
+            CopyDirectory(sourcePath, destinationPath);
+        }
+
+        private static void CopyDirectory(string sourcePath, string destinationPath)
+        {
+            Directory.CreateDirectory(destinationPath);
+
+            foreach (string file in Directory.GetFiles(sourcePath))
+            {
+                string fileName = Path.GetFileName(file);
+
+                File.Copy(file, Path.Combine(destinationPath, fileName), true);
+            }
+
+            foreach (string directory in Directory.GetDirectories(sourcePath))
+            {
+                string directoryName = Path.GetFileName(directory);
+
+                CopyDirectory(directory, Path.Combine(destinationPath, directoryName));
             }
         }
 

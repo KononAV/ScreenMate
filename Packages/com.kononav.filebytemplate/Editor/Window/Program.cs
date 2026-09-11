@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace KononAV.FileByTemplate.Editor
 {
-    public class PublicReadonlyWindow : EditorWindow
+    public class AttributesWindow : EditorWindow
     {
         private bool autoGenerate = true;
         private bool generateOnSave = true;
@@ -11,7 +11,7 @@ namespace KononAV.FileByTemplate.Editor
         [MenuItem("Tools/Public Readonly Generator")]
         public static void ShowWindow()
         {
-            GetWindow<PublicReadonlyWindow>("Public Readonly");
+            GetWindow<AttributesWindow>("Public Readonly");
         }
 
         private void OnGUI()

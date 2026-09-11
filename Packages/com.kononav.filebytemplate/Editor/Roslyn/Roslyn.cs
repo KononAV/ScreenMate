@@ -2,80 +2,48 @@
 using System.IO;
 using System.Threading;
 using AnalizerLogic;
+using NALogic;
 using UnityEngine;
 using static PublicReadonly;
 
+public struct RoslynFileManipulations
+{
+    public FileSystemEventHandler OnFileCreated;
+
+    public FileSystemEventHandler OnFileChanged;
+    public FileSystemEventHandler OnFileDeleted;
+}
+
 class RoslynAnalizer
 {
-    private static FileSystemWatcher watcher;
+    private static FileSystemWatcher _watcher;
+    private static FileSystemWatcher _utilsWatcher;
 
     public static void Main()
     {
         EXCEPTIONS.IsWorkDirectoryExist(EditorData.WATCHER_ASSETS_PATH);
 
+        NativeAttributesLogic.CreateDirectory(EditorData.ATTRIBUTES_FOLDER);
+
         Debug.Log("Generator started.");
         Debug.Log("Waiting for changes...");
 
-        WatcherSetup(EditorData.WATCHER_ASSETS_PATH);
-    }
-
-    private static void WatcherSetup(string AssetsPath)
-    {
-        watcher = new FileSystemWatcher(AssetsPath, "*.cs");
-
-        watcher.IncludeSubdirectories = true;
-        watcher.NotifyFilter = NotifyFilters.Size;
-        watcher.Changed += OnFileChanged;
-        watcher.EnableRaisingEvents = true;
-    }
-
-    private static void OnFileChanged(object sender, FileSystemEventArgs e)
-    {
-        try
-        {
-            Debug.Log("CHANGED " + e.FullPath);
-
-            Debug.Log("BEFORE EXCEPTION CHECK");
-
-            EXCEPTIONS.RecursionException(e);
-
-            Debug.Log("AFTER EXCEPTION CHECK");
-
-            Thread.Sleep(100);
-
-            Debug.Log("AFTER SLEEP");
-
-            Debug.Log("BEFORE ANALYZE");
-
-            Debug.Log("FILE: " + e.FullPath);
-            Debug.Log("EXISTS: " + File.Exists(e.FullPath));
-            Debug.Log("CONTENT:\n" + File.ReadAllText(e.FullPath));
-
-            var results = RoslynAnalyzer.Analyze(e.FullPath);
-
-            Debug.Log("AFTER ANALYZE");
-            Debug.Log("RESULTS COUNT: " + results.Count);
-
-            foreach (var result in results)
+        RoslynLogic.WatcherSetup(
+            _utilsWatcher,
+            EditorData.ATTRIBUTES_FOLDER,
+            new RoslynFileManipulations
             {
-                Debug.Log(result + " RESULT");
-
-                Debug.Log("TYPE: " + result.Type);
-                Debug.Log("FIELD: " + result.Fields);
-
-                AttributeGenerateTypes.Types.BaseTemplateByAttributeBuild(
-                    result.Type,
-                    result.Fields,
-                    PublicReadonly.Settings.Folder,
-                    PublicReadonly.Settings.FileInfo,
-                    PublicReadonly.GetStringCode
-                );
+                OnFileCreated = RoslynLogic.OnAttributeFileChanged,
+                OnFileChanged = RoslynLogic.OnAttributeFileChanged,
+                OnFileDeleted = RoslynLogic.OnAttributeFileChanged,
             }
-        }
-        catch (Exception exception)
-        {
-            Debug.LogError($"Error: {exception}");
-        }
+        );
+
+        RoslynLogic.WatcherSetup(
+            _watcher,
+            EditorData.WATCHER_ASSETS_PATH,
+            new RoslynFileManipulations { OnFileChanged = RoslynLogic.OnFileChanged }
+        );
     }
 }
 

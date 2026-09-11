@@ -7,10 +7,6 @@ public partial class GameView : MonoBehaviour
     [PublicReadonly]
     private List<int> scrolfdlBrr;
 
-    [SerializeField]
-    [PublicReadonly]
-    private GameObject[] i66;
-
     [PublicReadonly]
     public readonly GameObject adddsd7f;
 
