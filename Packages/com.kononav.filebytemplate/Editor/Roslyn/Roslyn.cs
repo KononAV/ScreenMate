@@ -9,7 +9,6 @@ using static PublicReadonly;
 public struct RoslynFileManipulations
 {
     public FileSystemEventHandler OnFileCreated;
-
     public FileSystemEventHandler OnFileChanged;
     public FileSystemEventHandler OnFileDeleted;
 }

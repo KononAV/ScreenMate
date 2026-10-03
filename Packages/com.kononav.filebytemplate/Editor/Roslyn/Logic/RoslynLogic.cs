@@ -30,15 +30,21 @@ public static class RoslynLogic
         string sourcePath = EditorData.ATTRIBUTES_FOLDER;
         string destinationPath = EditorData.UTILS_WATCHER_PATH;
 
-        NativeAttributesLogic.DeleteFolder(destinationPath);
+        NativeAttributesLogic.DeleteFolder(destinationPath + "/Attributes");
+
         NativeAttributesLogic.CopyFolder(sourcePath, destinationPath);
+        ;
+        FileJsonWriter.Save(
+            EditorData.UTILS_WATCHER_PATH + "/Attributes",
+            EditorData.UTILS_WATCHER_PATH + "/names.json"
+        );
     }
 
     public static void OnFileChanged(object sender, FileSystemEventArgs e)
     {
         try
         {
-            EXCEPTIONS.RecursionException(e);
+            //EXCEPTIONS.RecursionException(e);
 
             Thread.Sleep(100);
 
