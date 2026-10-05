@@ -1,4 +1,6 @@
+using DebugLogic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public partial class GameController : MonoBehaviour
 {
@@ -12,19 +14,19 @@ public partial class GameController : MonoBehaviour
 
     void Start()
     {
-        DebugLogic.DEBUG.Subscribe(view.debug.consoleText);
-
         windowSettings.Execute();
+        DEBUG.Subscribe(data.debugData);
         SetState(data.STATES.INIT);
     }
 
     void OnDestroy()
     {
-        DebugLogic.DEBUG.UnSubscribe(view.debug.consoleText);
+        DEBUG.UnSubscribe(data.debugData);
     }
 
     void Update()
     {
+        DebugLogic.DEBUG.Update(data.debugData);
         this._state.Update(Time.deltaTime, view, data);
     }
 
@@ -33,5 +35,12 @@ public partial class GameController : MonoBehaviour
         this._state?.OnExit(view, data);
         this._state = newState;
         this._state.OnEnter(view, data);
+    }
+
+    void OnGUI()
+    {
+        // if (Keyboard.current.enterKey.wasPressedThisFrame && data.debugData.showConsole)
+        DebugLogic.DEBUG.UpdateHistory(data.debugData);
+        DebugLogic.DEBUG.OnGUI(data.debugData);
     }
 }

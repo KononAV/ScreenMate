@@ -21,7 +21,7 @@ public struct DebugWindowSettings
 [System.Serializable]
 public class DebugView
 {
-    public TMP_Text consoleText;
-    public RectTransform window;
+    // public TMP_Text consoleText;
+    // public RectTransform window;
     public DebugWindowSettings windowSettings = new DebugWindowSettings();
 }
