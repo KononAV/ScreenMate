@@ -13,9 +13,8 @@ public class ChatView
     public Vector2 scroll;
     public ScrollRect answerScroll;
 
-    [NonSerialized] public string lastAnswerText;
-    [NonSerialized] public float lastAnswerWidth = -1;
-    [NonSerialized] public float lastAnswerHeight = -1;
+    [NonSerialized]
+    public string lastAnswerText;
 
     public void AddSendButtonListener(UnityAction listener)
     {

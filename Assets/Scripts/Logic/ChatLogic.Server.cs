@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public static class ChatLogic
+public static class ChatLogicServer
 {
     public static async void SendMessageToServer(GameData data, GameView view)
     {

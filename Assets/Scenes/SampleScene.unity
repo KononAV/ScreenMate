@@ -163,8 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eab5dc4c3c2dc48bef07e681a625f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameController
-<<<<<<< Updated upstream
-=======
   view: {fileID: 1385361214}
 --- !u!1 &88284496
 GameObject:
@@ -464,13 +462,9 @@ Transform:
   m_LocalPosition: {x: 7.08754, y: 2.72947, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 519420032}
-  - {fileID: 619394802}
-  - {fileID: 1910493586}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> Stashed changes
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1624,9 +1618,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db2406bb0b063be4ab5367626562fe3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameView
-<<<<<<< Updated upstream
-  scrollBarPanel: {fileID: 595646340}
-=======
   debug:
     windowSettings:
       minWidth: 0
@@ -1833,7 +1824,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RectMask2D
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
->>>>>>> Stashed changes
 --- !u!1 &1486008518
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,6 +2331,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 346045299}
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1371451011}

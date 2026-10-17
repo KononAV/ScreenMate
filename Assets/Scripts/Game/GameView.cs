@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 
 public partial class GameView : MonoBehaviour
 {
-<<<<<<< Updated upstream
-=======
     [SerializeField]
     public DebugView debug = new DebugView();
 
@@ -16,14 +14,8 @@ public partial class GameView : MonoBehaviour
     [SerializeField]
     public InputTestView inputTest = new();
 
->>>>>>> Stashed changes
     void Update()
     {
         //Debug.Log(AnotherScroll1);
-    }
-
-    void LateUpdate()
-    {
-        ChatLogicGUI.UpdateScroll(chat);
     }
 }

@@ -1,20 +1,29 @@
+using DebugLogic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public partial class GameController : MonoBehaviour
 {
+    [SerializeField]
+    public GameView view;
+    public readonly GameData data = new();
+    private BaseGameState _state;
+
     public readonly TransparentWindow windowSettings = new TransparentWindow();
 
     void Start()
     {
         windowSettings.Execute();
+        DEBUG.Subscribe(data.debugData);
+        SetState(data.STATES.INIT);
+
+        ChatLogicGUI.AddInputListener(view.chat, data.chat);
     }
 
-<<<<<<< Updated upstream
-    void Update() { }
-=======
     void OnDestroy()
     {
         DEBUG.UnSubscribe(data.debugData);
+        _state?.OnExit(view, data);
     }
 
     void Update()
@@ -22,8 +31,12 @@ public partial class GameController : MonoBehaviour
         DebugLogic.DEBUG.Update(data.debugData);
         this._state.Update(Time.deltaTime, view, data);
 
+        ChatLogic.MakeStep(view, data);
+
         InputTest.OnGUI(view);
     }
+
+    void LateUpdate() { }
 
     void SetState(BaseGameState newState)
     {
@@ -37,8 +50,5 @@ public partial class GameController : MonoBehaviour
         // if (Keyboard.current.enterKey.wasPressedThisFrame && data.debugData.showConsole)
         DebugLogic.DEBUG.UpdateHistory(data.debugData);
         DebugLogic.DEBUG.OnGUI(data.debugData);
-
-        ChatLogicGUI.UpdateScroll(view.chat);
     }
->>>>>>> Stashed changes
 }

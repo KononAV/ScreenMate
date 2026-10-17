@@ -1,37 +1,52 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public static class ChatLogicGUI
 {
-    public static void UpdateScroll(ChatView view)
+    public static void AddInputListener(ChatView view, ChatData data)
     {
-        // if (view.answerScroll)
-        // {
-        //     RectTransform frame = view.answerScroll.viewport;
+        view.input.onValueChanged.AddListener(
+            (text) =>
+            {
+                UpdateScroll(view, data);
+                if (data.lastAnswerLenghts.Count != 0)
+                    data.lastAnswerLenghts[0] = text.Length;
+                else
+                    data.lastAnswerLenghts.Add(text.Length);
+            }
+        );
+    }
 
-        //     frame.SetSizeWithCurrentAnchors(
-        //         RectTransform.Axis.Vertical,
-        //         frame.rect.height + view.text.ToString().Length
-        //     );
+    public static void UpdateScrollLength(ChatView view, ChatData data)
+    {
+        int newLength = view.input.text.Length;
 
-        //     Debug.Log(frame.rect.height);
-        // }
+        RectTransform rect = view.answerScroll.viewport;
 
+        float targetHeight = 20f + newLength * 10f;
+
+        float newHeight = Mathf.MoveTowards(rect.rect.height, targetHeight, 100f * Time.deltaTime);
+
+        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, newHeight);
+
+        if (Mathf.Abs(newHeight - targetHeight) < 0.01f)
+        {
+            data.lettersCount = newLength;
+        }
+    }
+
+    public static void UpdateScroll(ChatView view, ChatData data)
+    {
         if (view == null || view.text == null)
             return;
 
-        if (view.answerScroll == null)
-            CreateAnswerScroll(view);
-
         var viewport = view.answerScroll.viewport;
         float width = viewport.rect.width;
-        bool textChanged = view.lastAnswerText != view.text.text;
+
         if (
-            !textChanged
-            && Mathf.Approximately(view.lastAnswerWidth, width)
-            && Mathf.Approximately(view.lastAnswerHeight, viewport.rect.height)
+            Mathf.Approximately(data.lastAnswerWidth, width)
+            && Mathf.Approximately(data.lastAnswerHeight, viewport.rect.height)
         )
             return;
 
@@ -46,18 +61,15 @@ public static class ChatLogicGUI
         view.text.ForceMeshUpdate();
         Canvas.ForceUpdateCanvases();
 
-        if (textChanged)
-        {
-            view.answerScroll.StopMovement();
-            view.answerScroll.verticalNormalizedPosition = 1;
-        }
+        view.answerScroll.StopMovement();
+        view.answerScroll.verticalNormalizedPosition = 1;
 
         view.lastAnswerText = view.text.text;
-        view.lastAnswerWidth = width;
-        view.lastAnswerHeight = viewport.rect.height;
+        data.lastAnswerWidth = width;
+        data.lastAnswerHeight = viewport.rect.height;
     }
 
-    private static void CreateAnswerScroll(ChatView view)
+    public static void CreateAnswerScroll(ChatView view)
     {
         var textRect = view.text.rectTransform;
         var viewportObject = new GameObject(
