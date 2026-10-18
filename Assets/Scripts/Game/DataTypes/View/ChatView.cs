@@ -16,6 +16,21 @@ public class ChatView
     [NonSerialized]
     public string lastAnswerText;
 
+    public void AddInputListener(UnityAction<string> listener)
+    {
+        input.onValueChanged.AddListener(listener);
+    }
+
+    public void RemoveInputListener(UnityAction<string> listener)
+    {
+        input.onValueChanged.RemoveListener(listener);
+    }
+
+    public void RemoveAllInputListeners()
+    {
+        input.onValueChanged.RemoveAllListeners();
+    }
+
     public void AddSendButtonListener(UnityAction listener)
     {
         send.onClick.AddListener(listener);

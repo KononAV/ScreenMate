@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,8 +15,6 @@ public partial class GameView : MonoBehaviour
     [SerializeField]
     public InputTestView inputTest = new();
 
-    void Update()
-    {
-        //Debug.Log(AnotherScroll1);
-    }
+    [NonSerialized]
+    public readonly TransparentWindow windowSettings = new TransparentWindow();
 }

@@ -1,21 +1,17 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public static class ChatLogicGUI
 {
-    public static void AddInputListener(ChatView view, ChatData data)
+    public static void ListenToAnswer(string text, ChatView view, ChatData data)
     {
-        view.input.onValueChanged.AddListener(
-            (text) =>
-            {
-                UpdateScroll(view, data);
-                if (data.lastAnswerLenghts.Count != 0)
-                    data.lastAnswerLenghts[0] = text.Length;
-                else
-                    data.lastAnswerLenghts.Add(text.Length);
-            }
-        );
+        UpdateScroll(view, data);
+        if (data.lastAnswerLenghts.Count != 0)
+            data.lastAnswerLenghts[0] = text.Length;
+        else
+            data.lastAnswerLenghts.Add(text.Length);
     }
 
     public static void UpdateScrollLength(ChatView view, ChatData data)

@@ -1,5 +1,5 @@
 using DebugLogic;
-using Unity.VisualScripting;
+using GameControllerLogic;
 using UnityEngine;
 
 public partial class GameController : MonoBehaviour
@@ -7,17 +7,13 @@ public partial class GameController : MonoBehaviour
     [SerializeField]
     public GameView view;
     public readonly GameData data = new();
-    private BaseGameState _state;
 
-    public readonly TransparentWindow windowSettings = new TransparentWindow();
+    private BaseGameState _state;
 
     void Start()
     {
-        windowSettings.Execute();
-        DEBUG.Subscribe(data.debugData);
+        InitLogic.InitGame(this);
         SetState(data.STATES.INIT);
-
-        ChatLogicGUI.AddInputListener(view.chat, data.chat);
     }
 
     void OnDestroy()
@@ -28,12 +24,8 @@ public partial class GameController : MonoBehaviour
 
     void Update()
     {
-        DebugLogic.DEBUG.Update(data.debugData);
+        DEBUG.Update(data.debugData);
         this._state.Update(Time.deltaTime, view, data);
-
-        ChatLogic.MakeStep(view, data);
-
-        InputTest.OnGUI(view);
     }
 
     void LateUpdate() { }
@@ -48,7 +40,6 @@ public partial class GameController : MonoBehaviour
     void OnGUI()
     {
         // if (Keyboard.current.enterKey.wasPressedThisFrame && data.debugData.showConsole)
-        DebugLogic.DEBUG.UpdateHistory(data.debugData);
-        DebugLogic.DEBUG.OnGUI(data.debugData);
+        _state.OnGUI(view, data);
     }
 }

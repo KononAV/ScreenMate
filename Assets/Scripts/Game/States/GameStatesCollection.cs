@@ -1,4 +1,4 @@
 public class GameStatesCollection
 {
-    public readonly InitGameState INIT = new();
+    public readonly IdleChatGameState INIT = new();
 }
